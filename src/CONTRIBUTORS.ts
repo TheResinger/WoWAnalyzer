@@ -2316,3 +2316,16 @@ export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
 };
+
+export const Resinger: Contributor = {
+  nickname: 'Resinger',
+  github: 'TheResinger',
+  discord: 'resinger',
+  mains: [
+    {
+      name: 'Resinger',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/resinger',
+    },
+  ],
+};
