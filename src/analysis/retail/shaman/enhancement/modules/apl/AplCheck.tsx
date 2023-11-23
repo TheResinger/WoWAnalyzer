@@ -21,6 +21,7 @@ import SPELLS from 'common/SPELLS';
  */
 
 const atLeastFiveMSW = buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 });
+const atLeastEightMSW = buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 8 });
 const maxStacksMSW = buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10, atMost: 10 });
 
 export const apl = (info: PlayerInfo): Apl => {
@@ -73,7 +74,7 @@ export const apl = (info: PlayerInfo): Apl => {
       },
       {
         spell: SPELLS.LIGHTNING_BOLT,
-        condition: and(atLeastFiveMSW, buffPresent(SPELLS.PRIMORDIAL_WAVE_BUFF)),
+        condition: and(atLeastEightMSW, buffPresent(SPELLS.PRIMORDIAL_WAVE_BUFF)),
       },
       {
         spell: TALENTS.CHAIN_LIGHTNING_TALENT,
@@ -82,7 +83,7 @@ export const apl = (info: PlayerInfo): Apl => {
       {
         spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
         condition: and(
-          atLeastFiveMSW,
+          atLeastEightMSW,
           describe(
             or(
               buffPresent(SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON),
@@ -139,8 +140,6 @@ export const apl = (info: PlayerInfo): Apl => {
     TALENTS.LAVA_LASH_TALENT,
   );
 
-  rules.push(TALENTS.ICE_STRIKE_TALENT);
-
   !combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) &&
     rules.push(TALENTS.STORMSTRIKE_TALENT);
   combatant.hasTalent(TALENTS.HAILSTORM_TALENT) &&
@@ -162,6 +161,33 @@ export const apl = (info: PlayerInfo): Apl => {
       spell: SPELLS.LIGHTNING_BOLT,
       condition: atLeastFiveMSW,
     });
+
+  rules.push({
+    spell: TALENTS.FROST_SHOCK_TALENT,
+    description: (
+      <>
+        Cast <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> to fill.
+      </>
+    ),
+  });
+
+  rules.push({
+    spell: SPELLS.FLAME_SHOCK,
+    description: (
+      <>
+        Refresh <SpellLink spell={SPELLS.FLAME_SHOCK} /> to fill.
+      </>
+    ),
+  });
+
+  rules.push({
+    spell: TALENTS.WINDFURY_TOTEM_TALENT,
+    description: (
+      <>
+        Refresh <SpellLink spell={TALENTS.WINDFURY_TOTEM_TALENT} /> to fill.
+      </>
+    ),
+  });
 
   const apl = build(rules);
 
